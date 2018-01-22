@@ -96,3 +96,6 @@ res_k = select(w_change, w_change$subreddit, w_change$count, w_change$`(rank_j -
 res_i
 res_j
 res_k
+
+# stop
+sparkR.stop()
