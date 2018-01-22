@@ -19,17 +19,17 @@ library(magrittr)
 library(dplyr)
 
 ## start session with desired number of cores, import data
-sc = sparkR.session("local[4]")
+sc <- sparkR.session("local[4]")
 
 # in this case, data is imported from a local file -
 # depending on the constraints of your own machine, you may wish to connect to the data differently 
-df <- read.df("reddit.csv", "csv",header = "true", inferSchema = "true", na.strings = "NA")
+df <- read.df("reddit.csv", "csv", header = "true", inferSchema = "true", na.strings = "NA")
 
 ## manipulate data
 
 # create columns for month, day, hour, minute, and day of week
 res = select(df, df$subreddit, df$date) 
-res = mutate(res, month=month(res$date), day=dayofmonth(res$date), hour=hour(res$date), minute=minute(res$date))
+res = mutate(res, month = month(res$date), day = dayofmonth(res$date), hour = hour(res$date), minute = minute(res$date))
 
 # EDIT: over what time periods do you want to compare your data? (OPTIONS: month, day, hour, minute)
 grp <- "hour"
