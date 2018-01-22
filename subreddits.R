@@ -1,7 +1,7 @@
-# set system paths (if necessary)
-Sys.setenv(JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/")
-Sys.setenv(SPARK_HOME="/Users/torhall/spark/spark-2.1.0-bin-hadoop2.7/")
-.libPaths(c(file.path(Sys.getenv("SPARK_HOME"), "R/lib"), .libPaths()))
+## set system paths (if necessary)
+# Sys.setenv(JAVA_HOME="")
+# Sys.setenv(SPARK_HOME="")
+# .libPaths(c(file.path(Sys.getenv("SPARK_HOME"), "R/lib"), .libPaths()))
 if (("SparkR" %in% rownames(installed.packages())) == FALSE){
   install.packages("SparkR")
 }
@@ -18,13 +18,14 @@ if (("dplyr" %in% rownames(installed.packages())) == FALSE){
 library(magrittr)
 library(dplyr)
 
-# start session with desired number of cores, import data
+## start session with desired number of cores, import data
 sc = sparkR.session("local[4]")
 # in this case, data is imported from a local file for reproducibility.
 # depending on the constraints of your own machine, you may wish to connect to
 # the data differently in order to access a greater volume
-df <- read.df("/Users/torhall/Downloads/reddit-4.csv", "csv",header = "true", inferSchema = "true", na.strings = "NA")
+df <- read.df("reddit.csv", "csv",header = "true", inferSchema = "true", na.strings = "NA")
 
+## manipulate data
 # create columns for month, day, hour, minute, and day of week
 res = select(df, df$subreddit, df$date) 
 res = mutate(res, month=month(res$date), day=dayofmonth(res$date), hour=hour(res$date), minute=minute(res$date))
@@ -68,7 +69,7 @@ i_s = as.DataFrame(res_i)
 j_s = as.DataFrame(res_j)
 k_s = as.DataFrame(res_k)
 
-# calculate changes in rank
+## calculate changes in rank
 # join first and second groups to calculate change in rank
 join = join(i_s, j_s, i_s$"subreddit" == j_s$"subreddit", "outer")
 colnames(join)[col] <- 'sub'
@@ -89,7 +90,7 @@ w_change = join(k_s, change, k_s$"subreddit" == change$"sub", "outer")
 res_k = select(w_change, w_change$subreddit, w_change$count, w_change$`(rank_j - rank_k)`) %>%
   rename(., rank_change = .$`(rank_j - rank_k)`) %>% arrange(., desc(.$count)) %>% head(n=25)
 
-# view results
+## view results
 res_i
 res_j
 res_k
