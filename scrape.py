@@ -4,7 +4,7 @@ import requests.auth
 import pandas as pd
 import settings
 
-# authenticate
+# authenticate: update settings.py
 reddit = praw.Reddit(client_id=settings.client_id,
                      client_secret=settings.client_secret,
                      user_agent=settings.user_agent)
