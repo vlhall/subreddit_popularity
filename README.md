@@ -1,4 +1,4 @@
-# Billboard's Hot 25 (Subreddits)
+# Billboard's Hot 25 [Subreddits]
 
 An exploration of Reddit's API using Python and R. 
 
