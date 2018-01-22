@@ -16,15 +16,15 @@ print(reddit.read_only)
 start = 1512086400 #1512086400 = beginning of december 
 end = 1512086460 #1514764800 = end of december
 
-# scrape all posts' subreddits and creation date
+# scrape all posts' subreddits and creation dates
 subs = []
 dates = []
 for submission in reddit.subreddit('all').submissions(start, end):
     subs.append(submission.subreddit)
-    dates.append(submission.created)
+    dates.append(datetime.datetime.fromtimestamp(submission.created))
 
 # save to data frame 
 df = pd.DataFrame(list(zip(subs, dates)))
 df.columns = ['subreddit','date']
 #df.to_csv('reddit.csv')
-print df
+#print df
