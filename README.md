@@ -4,6 +4,8 @@ An exploration of Reddit's API using Python and R.
 
 Problem inspired by Professor Colin Rundel (Duke University, Department of Statistical Science)'s popular assignment to his students.
 
+*(System requirements: Spark, Java)*
+
 ## Background
 The self-proclaimed "Front page of the Internet", Reddit is a discussion-based website where users post content to any of thousands  of subreddits, each representing a general (or very, *very* niche) interest. Reddit has made a robust API available, granting access to the website's extreme amount of content, mostly produced in the form of subreddit posts and comments. Today, we challenge ourselves: can we create a [Billboard-style](http://www.billboard.com/charts/hot-100) Hot 25 ranking for subreddit popularity?
 
